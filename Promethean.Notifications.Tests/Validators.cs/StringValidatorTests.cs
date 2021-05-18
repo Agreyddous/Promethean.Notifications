@@ -9,10 +9,7 @@ namespace Promethean.Notifications.Tests.Validators
 		private Validator _validator;
 
 		[TestInitialize]
-		public void Setup()
-		{
-			_validator = new Validator();
-		}
+		public void Setup() => _validator = new Validator();
 
 		[TestMethod("Valid IsNotNullOrEmpty test, should have no notifications")]
 		[TestCategory("Valid Executions")]
@@ -126,6 +123,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.IsNotNullOrEmpty(string.Empty, Faker.Lorem.GetFirstWord(), NotificationMessage.NullOrEmpty);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid IsNullOrEmpty test, should have a notification")]
@@ -135,6 +133,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.IsNullOrEmpty(Faker.Name.First(), Faker.Lorem.GetFirstWord(), NotificationMessage.NotNullOrEmpty);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid HasMinLength test, should have a notification")]
@@ -144,6 +143,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.HasMinLength(Faker.Name.First(), 100, Faker.Lorem.GetFirstWord(), NotificationMessage.IncorrectLength);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid HasMaxLength test, should have a notification")]
@@ -153,6 +153,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.HasMaxLength(Faker.Name.FullName(), 1, Faker.Lorem.GetFirstWord(), NotificationMessage.IncorrectLength);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid HasLength test, should have a notification")]
@@ -162,6 +163,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.HasLength(Faker.Name.First(), 1, Faker.Lorem.GetFirstWord(), NotificationMessage.IncorrectLength);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid Contains test, should have a notification")]
@@ -171,6 +173,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.Contains(Faker.Name.First(), Faker.Lorem.Sentence(), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid AreEqual test, should have a notification")]
@@ -180,6 +183,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.AreEqual(Faker.Name.First(), Faker.Name.FullName(), Faker.Lorem.GetFirstWord(), NotificationMessage.NotEqual);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid AreNotEqual test, should have a notification")]
@@ -191,6 +195,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.AreNotEqual(name, name, Faker.Lorem.GetFirstWord(), NotificationMessage.Equal);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid IsEmail test, should have a notification")]
@@ -200,6 +205,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.IsEmail(Faker.Internet.SecureUrl(), Faker.Lorem.GetFirstWord(), NotificationMessage.InvalidFormat);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid IsUrl test, should have a notification")]
@@ -209,6 +215,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.IsUrl(Faker.Internet.Email(), Faker.Lorem.GetFirstWord(), NotificationMessage.InvalidFormat);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 
 		[TestMethod("Invalid Matchs test, should have a notification")]
@@ -218,6 +225,7 @@ namespace Promethean.Notifications.Tests.Validators
 			_validator.Matchs(string.Empty, Faker.Name.First(), Faker.Lorem.GetFirstWord(), NotificationMessage.InvalidFormat);
 
 			Assert.IsFalse(_validator.Valid);
+			Assert.AreEqual(1, _validator.Notifications.Count);
 		}
 	}
 }
