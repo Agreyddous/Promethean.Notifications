@@ -2,7 +2,7 @@ namespace Promethean.Notifications.Validators
 {
 	public partial class Validator
 	{
-		public Validator IsGreaterThan(double value, double comparer, string property, NotificationMessage notification)
+		public Validator IsGreaterThan(decimal value, decimal comparer, string property, NotificationMessage notification)
 		{
 			if (value <= comparer)
 				AddNotification(property, notification);
@@ -10,7 +10,7 @@ namespace Promethean.Notifications.Validators
 			return this;
 		}
 
-		public Validator IsGreaterOrEqualTo(double value, double comparer, string property, NotificationMessage notification)
+		public Validator IsGreaterOrEqualTo(decimal value, decimal comparer, string property, NotificationMessage notification)
 		{
 			if (value < comparer)
 				AddNotification(property, notification);
@@ -18,7 +18,7 @@ namespace Promethean.Notifications.Validators
 			return this;
 		}
 
-		public Validator IsLowerThan(double value, double comparer, string property, NotificationMessage notification)
+		public Validator IsLowerThan(decimal value, decimal comparer, string property, NotificationMessage notification)
 		{
 			if (value >= comparer)
 				AddNotification(property, notification);
@@ -26,7 +26,7 @@ namespace Promethean.Notifications.Validators
 			return this;
 		}
 
-		public Validator IsLowerOrEqualTo(double value, double comparer, string property, NotificationMessage notification)
+		public Validator IsLowerOrEqualTo(decimal value, decimal comparer, string property, NotificationMessage notification)
 		{
 			if (value > comparer)
 				AddNotification(property, notification);
@@ -34,7 +34,7 @@ namespace Promethean.Notifications.Validators
 			return this;
 		}
 
-		public Validator AreEqual(double value, double comparer, string property, NotificationMessage notification)
+		public Validator AreEqual(decimal value, decimal comparer, string property, NotificationMessage notification)
 		{
 			if (value != comparer)
 				AddNotification(property, notification);
@@ -42,7 +42,7 @@ namespace Promethean.Notifications.Validators
 			return this;
 		}
 
-		public Validator IsBetween(double value, double from, double to, string property, NotificationMessage notification)
+		public Validator IsBetween(decimal value, decimal from, decimal to, string property, NotificationMessage notification)
 		{
 			if (value < from || value > to)
 				AddNotification(property, notification);
