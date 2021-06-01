@@ -1,11 +1,11 @@
 using System;
-using System.ComponentModel;
-using System.Linq;
 
 namespace Promethean.Notifications
 {
-	public sealed class Notification
+	public class Notification
 	{
+		protected Notification() { }
+
 		public Notification(string property, NotificationMessage notification)
 		{
 			Property = property;
