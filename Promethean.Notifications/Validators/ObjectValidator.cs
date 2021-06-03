@@ -20,7 +20,7 @@ namespace Promethean.Notifications.Validators
 
 		public Validator AreEqual(object obj, object comparer, string property, NotificationMessage notification)
 		{
-			if (obj != comparer)
+			if (!obj.Equals(comparer))
 				AddNotification(property, notification);
 
 			return this;
@@ -28,7 +28,7 @@ namespace Promethean.Notifications.Validators
 
 		public Validator AreNotEqual(object obj, object comparer, string property, NotificationMessage notification)
 		{
-			if (obj == comparer)
+			if (obj.Equals(comparer))
 				AddNotification(property, notification);
 
 			return this;

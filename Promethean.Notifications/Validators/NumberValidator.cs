@@ -36,7 +36,7 @@ namespace Promethean.Notifications.Validators
 
 		public Validator AreEqual(decimal value, decimal comparer, string property, NotificationMessage notification)
 		{
-			if (value != comparer)
+			if (!value.Equals(comparer))
 				AddNotification(property, notification);
 
 			return this;

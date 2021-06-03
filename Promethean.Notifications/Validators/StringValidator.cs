@@ -53,7 +53,7 @@ namespace Promethean.Notifications.Validators
 
 		public Validator AreEqual(string value, string text, string property, NotificationMessage notification)
 		{
-			if (value != text)
+			if (!value.Equals(text))
 				AddNotification(property, notification);
 
 			return this;
@@ -61,7 +61,7 @@ namespace Promethean.Notifications.Validators
 
 		public Validator AreNotEqual(string value, string text, string property, NotificationMessage notification)
 		{
-			if (value == text)
+			if (value.Equals(text))
 				AddNotification(property, notification);
 
 			return this;
