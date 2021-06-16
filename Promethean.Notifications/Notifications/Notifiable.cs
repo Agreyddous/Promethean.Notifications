@@ -1,28 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Promethean.Notifications.Contracts;
+using Promethean.Notifications.Messages.Contracts;
 
 namespace Promethean.Notifications
 {
 	public abstract class Notifiable : INotifiable
 	{
-		private List<Notification> _notifications;
+		private List<INotification> _notifications;
 
-		protected Notifiable() => _notifications = new List<Notification>();
+		protected Notifiable() => _notifications = new List<INotification>();
 
 		public bool Valid => Notifications.Count == 0;
+		public IReadOnlyCollection<INotification> Notifications => _notifications.AsReadOnly();
 
-		public IReadOnlyCollection<Notification> Notifications => _notifications.AsReadOnly();
-
-		public void AddNotification(string property, NotificationMessage message) => AddNotification(new Notification(property, message));
+		public void AddNotification(string property, INotificationMessage message) => AddNotification(new Notification(property, message));
 		public void AddNotification(Exception exception) => AddNotification(new Notification(exception));
-		public void AddNotification(Notification notification) => _notifications.Add(notification);
-		public void AddNotifications(IEnumerable<Notification> notifications) => _notifications = _notifications.Concat(notifications ?? Array.Empty<Notification>()).ToList();
-		public void AddNotifications(Notifiable item) => AddNotifications(item?.Notifications);
-		public void AddNotifications(params Notifiable[] items)
-		{
-			foreach (Notifiable item in items)
-				AddNotifications(item);
-		}
+		public void AddNotification(INotification notification) => _notifications.Add(notification);
+		public void AddNotifications(IEnumerable<INotification> notifications) => _notifications = notifications != null ? _notifications.Concat(notifications).ToList() : _notifications;
+		public void AddNotifications(INotifiable item) => AddNotifications(item?.Notifications);
+		public void AddNotifications(params INotifiable[] items) => AddNotifications(items.SelectMany(item => item?.Notifications));
 	}
 }

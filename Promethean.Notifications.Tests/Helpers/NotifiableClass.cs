@@ -1,4 +1,5 @@
 using System;
+using Promethean.Notifications.Messages;
 using Promethean.Notifications.Validators;
 
 namespace Promethean.Notifications.Tests.Helpers

@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
 
-  <PropertyGroup>
-	<PackageId>Promethean.Notifications</PackageId>
-	<Version>1.0.2</Version>
-	<Authors>Nando VBMG</Authors>
-	<Company>Nando VBMG</Company>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>Promethean.Notifications</PackageId>
+		<Version>1.0.2</Version>
+		<Authors>Nando VBMG</Authors>
+		<Company>Nando VBMG</Company>
+	</PropertyGroup>
 
 </Project>

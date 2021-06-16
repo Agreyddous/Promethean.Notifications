@@ -1,5 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Promethean.Notifications.Messages;
 using Promethean.Notifications.Validators;
 
 namespace Promethean.Notifications.Tests.Validators
@@ -56,7 +57,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Valid Executions")]
 		public void ValidIsBetween()
 		{
-			_validator.IsBetween(DateTime.UtcNow, new DateTime(), DateTime.UtcNow, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsBetween(DateTime.UtcNow.AddHours(-24), new DateTime(), DateTime.UtcNow, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsTrue(_validator.Valid);
 		}

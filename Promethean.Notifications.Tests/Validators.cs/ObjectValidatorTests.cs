@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Promethean.Notifications.Messages;
 using Promethean.Notifications.Validators;
 
 namespace Promethean.Notifications.Tests.Validators

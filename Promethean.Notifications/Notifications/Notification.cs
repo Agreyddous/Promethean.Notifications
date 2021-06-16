@@ -1,12 +1,14 @@
 using System;
+using Promethean.Notifications.Contracts;
+using Promethean.Notifications.Messages.Contracts;
 
 namespace Promethean.Notifications
 {
-	public class Notification
+	public class Notification : INotification
 	{
 		protected Notification() { }
 
-		public Notification(string property, NotificationMessage notification)
+		public Notification(string property, INotificationMessage notification)
 		{
 			Property = property;
 			Message = notification.Message;
