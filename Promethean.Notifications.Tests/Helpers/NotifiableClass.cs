@@ -37,11 +37,11 @@ namespace Promethean.Notifications.Tests.Helpers
 			validator.IsGreaterOrEqualTo(Points, 0, nameof(Points), NotificationMessage.SmallNumber);
 			validator.IsLowerOrEqualTo(Points, 999, nameof(Points), NotificationMessage.BigNumber);
 
-			validator.IsGreaterOrEqualTo(Level, 0, nameof(Points), NotificationMessage.SmallNumber);
-			validator.IsLowerOrEqualTo(Level, 145, nameof(Points), NotificationMessage.BigNumber);
+			validator.IsGreaterOrEqualTo(Level, 0, nameof(Level), NotificationMessage.SmallNumber);
+			validator.IsLowerOrEqualTo(Level, 145, nameof(Level), NotificationMessage.BigNumber);
 
-			validator.IsGreaterOrEqualTo(Balance, 0, nameof(Points), NotificationMessage.SmallNumber);
-			validator.IsLowerOrEqualTo(Balance, (decimal)999999.99, nameof(Points), NotificationMessage.BigNumber);
+			validator.IsGreaterOrEqualTo(Balance, 0, nameof(Balance), NotificationMessage.SmallNumber);
+			validator.IsLowerOrEqualTo(Balance, (decimal)999999.99, nameof(Balance), NotificationMessage.BigNumber);
 
 			validator.IsGreaterOrEqualTo(CreatedAt, new DateTime(), nameof(CreatedAt), NotificationMessage.Invalid);
 

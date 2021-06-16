@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using Promethean.Notifications.Contracts;
 using Promethean.Notifications.Messages.Contracts;
 
@@ -12,7 +13,10 @@ namespace Promethean.Notifications
 
 		protected Notifiable() => _notifications = new List<INotification>();
 
+		[JsonIgnore]
 		public bool Valid => Notifications.Count == 0;
+
+		[JsonIgnore]
 		public IReadOnlyCollection<INotification> Notifications => _notifications.AsReadOnly();
 
 		public void AddNotification(string property, INotificationMessage message) => AddNotification(new Notification(property, message));
