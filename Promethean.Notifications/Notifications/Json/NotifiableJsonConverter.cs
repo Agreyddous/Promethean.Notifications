@@ -9,36 +9,37 @@ namespace Promethean.Notifications.Json
 	{
 		public override bool CanConvert(Type typeToConvert) => typeof(INotifiable).IsAssignableFrom(typeToConvert);
 
-		public override object Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => JsonSerializer.Deserialize(ref reader, typeToConvert);
+		public override object Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => JsonSerializer.Deserialize(ref reader, typeToConvert, _removeSelf(options));
 
 		public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options)
 		{
 			INotifiable notifiableValue = value as INotifiable;
+			options = _removeSelf(options);
 
 			if (notifiableValue.Valid)
-				JsonSerializer.Serialize(writer, value, value.GetType());
+				JsonSerializer.Serialize(writer, value, value.GetType(), options);
 
 			else
 			{
-				JsonDocument valueDocument = JsonDocument.Parse(JsonSerializer.Serialize(value, value.GetType()));
+				JsonDocument valueDocument = JsonDocument.Parse(JsonSerializer.Serialize(value, value.GetType(), options));
 
 				writer.WriteStartObject();
 
 				foreach (JsonProperty property in valueDocument.RootElement.EnumerateObject())
 					property.WriteTo(writer);
 
-				writer.WriteBoolean(nameof(INotifiable.Valid), notifiableValue.Valid);
+				writer.WriteBoolean(_resolvePropertyName(nameof(INotifiable.Valid), options), notifiableValue.Valid);
 
-				writer.WritePropertyName(nameof(INotifiable.Notifications));
+				writer.WritePropertyName(_resolvePropertyName(nameof(INotifiable.Notifications), options));
 				writer.WriteStartArray();
 
 				foreach (INotification notification in notifiableValue.Notifications)
 				{
 					writer.WriteStartObject();
 
-					writer.WriteString(nameof(INotification.Property), notification.Property);
-					writer.WriteString(nameof(INotification.Message), notification.Message);
-					writer.WriteNumber(nameof(INotification.Code), notification.Code);
+					writer.WriteString(_resolvePropertyName(nameof(INotification.Property), options), _resolvePropertyName(notification.Property, options));
+					writer.WriteString(_resolvePropertyName(nameof(INotification.Message), options), notification.Message);
+					writer.WriteNumber(_resolvePropertyName(nameof(INotification.Code), options), notification.Code);
 
 					writer.WriteEndObject();
 				}
@@ -48,5 +49,16 @@ namespace Promethean.Notifications.Json
 				writer.WriteEndObject();
 			}
 		}
+
+		private JsonSerializerOptions _removeSelf(JsonSerializerOptions options)
+		{
+			options = new JsonSerializerOptions(options);
+
+			options.Converters.Remove(this);
+
+			return options;
+		}
+
+		private string _resolvePropertyName(string name, JsonSerializerOptions options) => options.PropertyNamingPolicy.ConvertName(name);
 	}
 }
