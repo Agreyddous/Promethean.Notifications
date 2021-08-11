@@ -1,5 +1,6 @@
 using System;
 using Promethean.Notifications.Contracts;
+using Promethean.Notifications.Messages;
 using Promethean.Notifications.Messages.Contracts;
 
 namespace Promethean.Notifications
@@ -8,35 +9,19 @@ namespace Promethean.Notifications
 	{
 		protected Notification() { }
 
-		public Notification(string property, INotificationMessage notification)
+		public Notification(string property, INotificationMessage notificationMessage)
 		{
 			Property = property;
-			Message = notification.Message;
-			Code = notification.Code;
+			Message = notificationMessage;
 		}
 
 		public Notification(Exception exception)
 		{
 			Property = "Error";
-			Message = ExceptionMessage(exception);
-			Code = -1;
+			Message = new ExceptionNotificationMessage(exception);
 		}
 
 		public string Property { get; private set; }
-		public string Message { get; private set; }
-		public int Code { get; private set; }
-
-		private string ExceptionMessage(Exception exception)
-		{
-			string message = exception.Message;
-
-			while (exception.InnerException != null)
-			{
-				exception = exception.InnerException;
-				message = $"{message} -> {exception.Message}";
-			}
-
-			return message;
-		}
+		public INotificationMessage Message { get; private set; }
 	}
 }

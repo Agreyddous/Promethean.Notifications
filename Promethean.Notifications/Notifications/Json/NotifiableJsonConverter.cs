@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Promethean.Notifications.Contracts;
+using Promethean.Notifications.Messages.Contracts;
 
 namespace Promethean.Notifications.Json
 {
@@ -31,21 +33,26 @@ namespace Promethean.Notifications.Json
 				writer.WriteBoolean(_resolvePropertyName(nameof(INotifiable.Valid), options), notifiableValue.Valid);
 
 				writer.WritePropertyName(_resolvePropertyName(nameof(INotifiable.Notifications), options));
-				writer.WriteStartArray();
+				writer.WriteStartObject();
 
-				foreach (INotification notification in notifiableValue.Notifications)
+				foreach (KeyValuePair<string, IReadOnlyCollection<INotificationMessage>> propertyNotifications in notifiableValue.Notifications)
 				{
-					writer.WriteStartObject();
+					writer.WriteStartArray(_resolvePropertyName(propertyNotifications.Key, options));
 
-					writer.WriteString(_resolvePropertyName(nameof(INotification.Property), options), _resolvePropertyName(notification.Property, options));
-					writer.WriteString(_resolvePropertyName(nameof(INotification.Message), options), notification.Message);
-					writer.WriteNumber(_resolvePropertyName(nameof(INotification.Code), options), notification.Code);
+					foreach (INotificationMessage notification in propertyNotifications.Value)
+					{
+						writer.WriteStartObject();
 
-					writer.WriteEndObject();
+						writer.WriteString(_resolvePropertyName(nameof(INotificationMessage.Message), options), notification.Message);
+						writer.WriteNumber(_resolvePropertyName(nameof(INotificationMessage.Code), options), notification.Code);
+
+						writer.WriteEndObject();
+					}
+
+					writer.WriteEndArray();
 				}
 
-				writer.WriteEndArray();
-
+				writer.WriteEndObject();
 				writer.WriteEndObject();
 			}
 		}

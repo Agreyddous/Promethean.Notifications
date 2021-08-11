@@ -12,7 +12,8 @@ namespace Promethean.Notifications.Messages
 			Code = code;
 			Message = message;
 
-			_messages.Add(code, this);
+			if (!_messages.ContainsKey(code))
+				_messages.Add(code, this);
 		}
 
 		public NotificationMessage this[ECodes index] => this[(int)index];

@@ -7,13 +7,14 @@ namespace Promethean.Notifications.Contracts
 	public interface INotifiable
 	{
 		bool Valid { get; }
-		IReadOnlyCollection<INotification> Notifications { get; }
+		IReadOnlyDictionary<string, IReadOnlyCollection<INotificationMessage>> Notifications { get; }
 
-		void AddNotification(string property, INotificationMessage message);
-		void AddNotification(Exception exception);
-		void AddNotification(INotification notification);
-		void AddNotifications(IEnumerable<INotification> notifications);
-		void AddNotifications(INotifiable item);
-		void AddNotifications(params INotifiable[] items);
+		INotifiable AddNotification(string property, INotificationMessage message);
+		INotifiable AddNotification(INotification notification);
+		INotifiable AddNotification(Exception exception);
+
+		INotifiable AddNotifications(IEnumerable<KeyValuePair<string, IReadOnlyCollection<INotificationMessage>>> notifications);
+		INotifiable AddNotifications(INotifiable item);
+		INotifiable AddNotifications(params INotifiable[] items);
 	}
 }
