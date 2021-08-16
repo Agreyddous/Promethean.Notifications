@@ -6,7 +6,7 @@
 
 	<PropertyGroup>
 		<PackageId>Promethean.Notifications</PackageId>
-		<Version>1.0.4</Version>
+		<Version>1.0.5</Version>
 		<Authors>Nando VBMG</Authors>
 		<Company>Nando VBMG</Company>
 	</PropertyGroup>
