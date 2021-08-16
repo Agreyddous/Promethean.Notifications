@@ -6,18 +6,18 @@ using Promethean.Notifications.Validators;
 namespace Promethean.Notifications.Tests.Validators
 {
 	[TestClass]
-	public class DateTimeValidatorTests
+	public class TimeSpanValidatorTests
 	{
-		private Validator _validator;
+		private PrometheanValidator _validator;
 
 		[TestInitialize]
-		public void Setup() => _validator = new Validator();
+		public void Setup() => _validator = new PrometheanValidator();
 
 		[TestMethod("Valid IsGreaterThan test, should have no notifications")]
 		[TestCategory("Valid Executions")]
 		public void ValidIsGreaterThan()
 		{
-			_validator.IsGreaterThan(DateTime.UtcNow, new DateTime(), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsGreaterThan(TimeSpan.FromHours(24), new TimeSpan(), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsTrue(_validator.Valid);
 		}
@@ -26,9 +26,9 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Valid Executions")]
 		public void ValidIsGreaterOrEqualTo()
 		{
-			DateTime now = DateTime.UtcNow;
+			TimeSpan value = TimeSpan.FromHours(24);
 
-			_validator.IsGreaterOrEqualTo(now, now, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsGreaterOrEqualTo(value, value, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsTrue(_validator.Valid);
 		}
@@ -37,7 +37,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Valid Executions")]
 		public void ValidIsLowerThan()
 		{
-			_validator.IsLowerThan(new DateTime(), DateTime.UtcNow, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsLowerThan(new TimeSpan(), TimeSpan.FromHours(24), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsTrue(_validator.Valid);
 		}
@@ -46,9 +46,9 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Valid Executions")]
 		public void ValidIsLowerOrEqualTo()
 		{
-			DateTime now = DateTime.UtcNow;
+			TimeSpan value = TimeSpan.FromHours(24);
 
-			_validator.IsLowerOrEqualTo(now, now, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsLowerOrEqualTo(value, value, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsTrue(_validator.Valid);
 		}
@@ -57,7 +57,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Valid Executions")]
 		public void ValidIsBetween()
 		{
-			_validator.IsBetween(DateTime.UtcNow.AddHours(-24), new DateTime(), DateTime.UtcNow, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsBetween(TimeSpan.FromHours(12), new TimeSpan(), TimeSpan.FromHours(24), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsTrue(_validator.Valid);
 		}
@@ -66,7 +66,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Invalid Executions")]
 		public void InvalidIsGreaterThan()
 		{
-			_validator.IsGreaterThan(new DateTime(), DateTime.UtcNow, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsGreaterThan(new TimeSpan(), TimeSpan.FromHours(24), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsFalse(_validator.Valid);
 			Assert.AreEqual(1, _validator.Notifications.Count);
@@ -76,7 +76,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Invalid Executions")]
 		public void InvalidIsGreaterOrEqualTo()
 		{
-			_validator.IsGreaterOrEqualTo(new DateTime(), DateTime.UtcNow, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsGreaterOrEqualTo(new TimeSpan(), TimeSpan.FromHours(24), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsFalse(_validator.Valid);
 			Assert.AreEqual(1, _validator.Notifications.Count);
@@ -86,7 +86,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Invalid Executions")]
 		public void InvalidIsLowerThan()
 		{
-			_validator.IsLowerThan(DateTime.UtcNow, new DateTime(), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsLowerThan(TimeSpan.FromHours(24), new TimeSpan(), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsFalse(_validator.Valid);
 			Assert.AreEqual(1, _validator.Notifications.Count);
@@ -96,7 +96,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Invalid Executions")]
 		public void InvalidIsLowerOrEqualTo()
 		{
-			_validator.IsLowerOrEqualTo(DateTime.UtcNow, new DateTime(), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsLowerOrEqualTo(TimeSpan.FromHours(24), new TimeSpan(), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsFalse(_validator.Valid);
 			Assert.AreEqual(1, _validator.Notifications.Count);
@@ -106,7 +106,7 @@ namespace Promethean.Notifications.Tests.Validators
 		[TestCategory("Invalid Executions")]
 		public void InvalidIsBetween()
 		{
-			_validator.IsBetween(new DateTime(), DateTime.UtcNow, DateTime.UtcNow, Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
+			_validator.IsBetween(new TimeSpan(), TimeSpan.FromHours(24), TimeSpan.FromHours(24), Faker.Lorem.GetFirstWord(), NotificationMessage.Invalid);
 
 			Assert.IsFalse(_validator.Valid);
 			Assert.AreEqual(1, _validator.Notifications.Count);

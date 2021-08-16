@@ -7,10 +7,10 @@ namespace Promethean.Notifications.Tests.Validators
 	[TestClass]
 	public class BoolValidatorTests
 	{
-		private Validator _validator;
+		private PrometheanValidator _validator;
 
 		[TestInitialize]
-		public void Setup() => _validator = new Validator();
+		public void Setup() => _validator = new PrometheanValidator();
 
 		[TestMethod("Valid IsTrue test, should have no notifications")]
 		[TestCategory("Valid Executions")]

@@ -1,6 +1,7 @@
 using System;
 using Promethean.Notifications.Messages;
 using Promethean.Notifications.Validators;
+using Promethean.Notifications.Validators.Contracts;
 
 namespace Promethean.Notifications.Tests.Helpers
 {
@@ -29,7 +30,7 @@ namespace Promethean.Notifications.Tests.Helpers
 
 		public void Validate()
 		{
-			Validator validator = new Validator();
+			PrometheanValidator validator = new PrometheanValidator();
 
 			validator.IsNotNullOrEmpty(Username, nameof(Username), NotificationMessage.NullOrEmpty);
 			validator.HasMaxLength(Username, 30, nameof(Username), NotificationMessage.IncorrectLength);
