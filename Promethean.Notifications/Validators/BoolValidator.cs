@@ -9,9 +9,9 @@ namespace Promethean.Notifications.Validators
 		/// Add a notification for the <paramref name="property"/> with the <paramref name="code"/> if <paramref name="value"/> is not true.
 		/// </summary>
 
-		/// <param name="value"></param>
-		/// <param name="property"></param>
-		/// <param name="code"></param>
+		/// <param name="enumerable">Bool to evaluate</param>
+		/// <param name="property">Name of the property</param>
+		/// <param name="code">Code for the notification</param>
 
 		/// <returns>The Validator itself for chaining validations</returns>
 		public PrometheanValidator IsTrue(bool value, string property, int code) => IsTrue(value, property, NotificationMessage.ByCode(code));
@@ -20,9 +20,9 @@ namespace Promethean.Notifications.Validators
 		/// Add the <paramref name="notification"/> for the <paramref name="property"/> if <paramref name="value"/> is not true.
 		/// </summary>
 
-		/// <param name="value"></param>
-		/// <param name="property"></param>
-		/// <param name="notification"></param>
+		/// <param name="enumerable">Bool to evaluate</param>
+		/// <param name="property">Name of the property</param>
+		/// <param name="notification">Code for the notification</param>
 
 		/// <returns>The Validator itself for chaining validations</returns>
 		public PrometheanValidator IsTrue(bool value, string property, INotificationMessage notification)
@@ -37,9 +37,9 @@ namespace Promethean.Notifications.Validators
 		/// Add a notification for the <paramref name="property"/> with the <paramref name="code"/> if <paramref name="value"/> is true.
 		/// </summary>
 
-		/// <param name="value"></param>
-		/// <param name="property"></param>
-		/// <param name="code"></param>
+		/// <param name="enumerable">Bool to evaluate</param>
+		/// <param name="property">Name of the property</param>
+		/// <param name="code">Code for the notification</param>
 
 		/// <returns>The Validator itself for chaining validations</returns>
 		public PrometheanValidator IsFalse(bool value, string property, int code) => IsFalse(value, property, NotificationMessage.ByCode(code));
@@ -48,9 +48,9 @@ namespace Promethean.Notifications.Validators
 		/// Add the <paramref name="notification"/> for the <paramref name="property"/> if <paramref name="value"/> is true.
 		/// </summary>
 
-		/// <param name="value"></param>
-		/// <param name="property"></param>
-		/// <param name="notification"></param>
+		/// <param name="enumerable">Bool to evaluate</param>
+		/// <param name="property">Name of the property</param>
+		/// <param name="notification">Code for the notification</param>
 
 		/// <returns>The Validator itself for chaining validations</returns>
 		public PrometheanValidator IsFalse(bool value, string property, INotificationMessage notification)
